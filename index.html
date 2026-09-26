@@ -1,0 +1,1881 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CrochetNest | Handmade Crochet Products</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff8f5;
+            color: #4b2e24;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: #6b3e2e;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .tagline {
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: #a85d4a;
+        }
+
+        /* HERO */
+        .hero {
+            background: #f5d6cc;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #6b3e2e;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #8b4f3d;
+        }
+
+        /* GENERAL SECTION */
+        section {
+            padding: 50px 7%;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* CATEGORIES */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .category-button {
+            padding: 10px 18px;
+            border: 1px solid #b87966;
+            background: white;
+            color: #6b3e2e;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .category-button:hover,
+        .category-button.active {
+            background: #6b3e2e;
+            color: white;
+        }
+
+        /* SEARCH */
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 90%;
+            max-width: 500px;
+            padding: 13px;
+            border: 1px solid #c9a69b;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* PRODUCTS */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+            padding-bottom: 20px;
+        }
+
+        .product img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 18px;
+            text-align: center;
+        }
+
+        .product h3 {
+            margin-bottom: 8px;
+        }
+
+        .product p {
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #a34d36;
+            margin: 10px 0;
+        }
+
+        /* CART FLOATING BUTTON */
+        .cart-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #6b3e2e;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        /* CART PANEL */
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 380px;
+            max-width: 95%;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            padding: 25px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .cart-panel.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-cart {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .cart-item h4 {
+            margin-bottom: 5px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .quantity-controls button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #f0d0c5;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background: #c94c4c !important;
+            color: white;
+            width: auto !important;
+            padding: 5px 10px;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* CHECKOUT */
+        .checkout-container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .checkout-summary {
+            background: #fff1ec;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #c9a69b;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* CUSTOM ORDER */
+        .custom-order {
+            max-width: 800px;
+            margin: auto;
+            background: #fff0eb;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* REVIEWS */
+        .reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .review {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .stars {
+            color: #e6a400;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* ABOUT */
+        .about-box {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        /* SERVER INFO */
+        .server-info {
+            max-width: 700px;
+            margin: auto;
+            background: #fff0eb;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .server-info p {
+            margin: 8px 0;
+        }
+
+        /* CONTACT */
+        .contact-box {
+            text-align: center;
+            background: #f5d6cc;
+            padding: 35px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .contact-box p {
+            margin: 10px 0;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #6b3e2e;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* WHATSAPP */
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1ebe5d;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .cart-panel {
+                width: 100%;
+            }
+
+            section {
+                padding: 40px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div>
+            <div class="logo">🧶 CrochetNest</div>
+            <div class="tagline">
+                Handmade with Love, Made Just for You ❤️
+            </div>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#checkout">Checkout</a>
+            <a href="#custom">Custom Orders</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <h1>Beautiful Handmade Crochet Products 🧶</h1>
+
+        <p>
+            Cute, creative and handmade crochet products made with love.
+        </p>
+
+        <a href="#products" class="btn">
+            Shop Now
+        </a>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <section id="products">
+
+        <h2>🧶 Our Crochet Collection</h2>
+
+        <p class="section-intro">
+            Explore our handmade crochet collection. Choose your favourite
+            product or create a customized gift.
+        </p>
+
+
+        <!-- CATEGORIES -->
+        <div class="categories">
+
+            <button
+                class="category-button active"
+                onclick="filterCategory('All', this)">
+                All
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Bags', this)">
+                Bags
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Flowers', this)">
+                Flowers
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Toys', this)">
+                Toys
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Keychains', this)">
+                Keychains
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Pouches', this)">
+                Pouches
+            </button>
+
+            <button
+                class="category-button"
+                onclick="filterCategory('Gifts', this)">
+                Gifts
+            </button>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Search for a crochet product..."
+                onkeyup="filterProducts()">
+
+        </div>
+
+
+        <!-- PRODUCT GRID -->
+        <div class="products">
+
+
+            <!-- PRODUCT 1 -->
+            <div
+                class="product"
+                data-name="crochet tote bag"
+                data-category="Bags">
+
+                <img
+                    src="./images/SlingBags.png"
+                    alt="Crochet Tote Bag">
+
+                <div class="product-content">
+
+                    <h3>Crochet Tote Bag</h3>
+
+                    <p>
+                        Stylish handmade crochet bag.
+                    </p>
+
+                    <div class="price">
+                        ₹799
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Crochet Tote Bag', 799)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+            <div
+                class="product"
+                data-name="crochet flower bouquet"
+                data-category="Flowers">
+
+                <img
+                    src="./images/FlowerPot.png"
+                    alt="Crochet Flower Bouquet">
+
+                <div class="product-content">
+
+                    <h3>Crochet Flower Bouquet</h3>
+
+                    <p>
+                        Handmade flowers for beautiful gifting.
+                    </p>
+
+                    <div class="price">
+                        ₹599
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Crochet Flower Bouquet', 599)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+            <div
+                class="product"
+                data-name="amigurumi teddy"
+                data-category="Toys">
+
+                <img
+                    src="./images/Buddy.png"
+                    alt="Amigurumi Teddy">
+
+                <div class="product-content">
+
+                    <h3>Amigurumi Teddy</h3>
+
+                    <p>
+                        Cute handmade crochet teddy.
+                    </p>
+
+                    <div class="price">
+                        ₹699
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Amigurumi Teddy', 699)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+            <div
+                class="product"
+                data-name="crochet keychain"
+                data-category="Keychains">
+
+                <img
+                    src="./images/Keychains.png"
+                    alt="Crochet Keychain">
+
+                <div class="product-content">
+
+                    <h3>Crochet Keychain</h3>
+
+                    <p>
+                        Small and cute handmade keychain.
+                    </p>
+
+                    <div class="price">
+                        ₹199
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Crochet Keychain', 199)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- PRODUCT 5 -->
+            <div
+                class="product"
+                data-name="crochet pouch"
+                data-category="Pouches">
+
+                <img
+                    src="./images/Wallet.png"
+                    alt="Crochet Pouch">
+
+                <div class="product-content">
+
+                    <h3>Crochet Pouch</h3>
+
+                    <p>
+                        Useful handmade crochet pouch.
+                    </p>
+
+                    <div class="price">
+                        ₹399
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Crochet Pouch', 399)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- PRODUCT 6 -->
+            <div
+                class="product"
+                data-name="custom crochet gift"
+                data-category="Gifts">
+
+                <img
+                    src="./images/CustomeizedKeyChains.png"
+                    alt="Custom Crochet Gift">
+
+                <div class="product-content">
+
+                    <h3>Custom Crochet Gift</h3>
+
+                    <p>
+                        Personalized crochet gift made specially for you.
+                    </p>
+
+                    <div class="price">
+                        ₹999+
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="addToCart('Custom Crochet Gift', 999)">
+                        Add to Cart
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CART FLOATING BUTTON -->
+    <div
+        class="cart-button"
+        onclick="toggleCart()"
+        id="cartButton">
+
+        🛒 Cart:
+        <span id="cartCount">0</span>
+        items |
+        ₹<span id="cartTotal">0</span>
+
+    </div>
+
+
+    <!-- CART PANEL -->
+    <div
+        class="cart-panel"
+        id="cartPanel">
+
+        <div class="cart-header">
+
+            <h2>🛒 Your Shopping Cart</h2>
+
+            <span
+                class="close-cart"
+                onclick="toggleCart()">
+                ×
+            </span>
+
+        </div>
+
+
+        <div id="cartItems">
+
+            <p>Your cart is empty.</p>
+
+        </div>
+
+
+        <div class="cart-total">
+
+            Total:
+            ₹<span id="panelTotal">0</span>
+
+        </div>
+
+
+        <button
+            class="btn"
+            onclick="goToCheckout()">
+
+            Proceed to Checkout
+
+        </button>
+
+    </div>
+
+
+    <!-- CHECKOUT -->
+    <section id="checkout">
+
+        <h2>💳 Checkout</h2>
+
+        <div class="checkout-container">
+
+
+            <div class="checkout-summary">
+
+                <h3>Order Summary</h3>
+
+                <div id="checkoutSummary">
+
+                    <p>
+                        Your cart is empty.
+                    </p>
+
+                </div>
+
+                <hr>
+
+                <h3>
+                    Total:
+                    ₹<span id="checkoutTotal">0</span>
+                </h3>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="customerName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="customerPhone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="Enter your phone number">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="customerAddress">
+                    Delivery Address
+                </label>
+
+                <textarea
+                    id="customerAddress"
+                    placeholder="Enter your complete delivery address"></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="paymentMethod">
+                    Payment Method
+                </label>
+
+                <select id="paymentMethod">
+
+                    <option value="Cash on Delivery">
+                        Cash on Delivery
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Online Payment">
+                        Online Payment
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="btn"
+                onclick="placeOrder()">
+
+                Place Order
+
+            </button>
+
+
+            <br><br>
+
+
+            <button
+                class="whatsapp-btn"
+                onclick="sendWhatsAppOrder()">
+
+                💬 Order Through WhatsApp
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CUSTOM ORDERS -->
+    <section id="custom">
+
+        <h2>🎁 Custom Orders</h2>
+
+        <p class="section-intro">
+
+            Want something special?
+            Tell us what you would like and we will create
+            a personalized crochet product for you.
+
+        </p>
+
+
+        <div class="custom-order">
+
+            <form onsubmit="submitCustomOrder(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customName"
+                        required
+                        placeholder="Enter your name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customPhone"
+                        required
+                        placeholder="Enter your phone number">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        What would you like?
+                    </label>
+
+                    <textarea
+                        id="customRequest"
+                        required
+                        placeholder="Describe your custom crochet product"></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Preferred Colour
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customColour"
+                        placeholder="Example: Pink, Blue, Cream">
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn">
+
+                    Submit Custom Request
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- GALLERY -->
+    <section id="gallery">
+
+        <h2>📸 Our Gallery</h2>
+
+        <p class="section-intro">
+
+            A small collection of our handmade crochet creations.
+
+        </p>
+
+
+        <div class="gallery">
+
+            <img
+                src="./images/SlingBags.png"
+                alt="Crochet Sling Bag">
+
+            <img
+                src="./images/FlowerPot.png"
+                alt="Crochet Flower">
+
+            <img
+                src="./images/Buddy.png"
+                alt="Crochet Teddy">
+
+            <img
+                src="./images/Keychains.png"
+                alt="Crochet Keychains">
+
+            <img
+                src="./images/Wallet.png"
+                alt="Crochet Wallet">
+
+            <img
+                src="./images/CustomeizedKeyChains.png"
+                alt="Customized Crochet Keychains">
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+
+        <h2>⭐ Customer Reviews</h2>
+
+        <div class="reviews">
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The crochet product was beautiful and
+                    very neatly made. I loved it!"
+                </p>
+
+                <strong>
+                    – Priya
+                </strong>
+
+            </div>
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The quality was really good and the
+                    handmade finish was lovely."
+                </p>
+
+                <strong>
+                    – Ananya
+                </strong>
+
+            </div>
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "A very cute gift idea. The product
+                    looked exactly like I expected."
+                </p>
+
+                <strong>
+                    – Kavya
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about">
+
+        <h2>❤️ About CrochetNest</h2>
+
+        <div class="about-box">
+
+            <p>
+
+                CrochetNest is a small handmade crochet store
+                created with love and creativity.
+
+            </p>
+
+            <br>
+
+            <p>
+
+                Every product is carefully handmade to bring
+                something unique, cute and useful to our customers.
+
+            </p>
+
+            <br>
+
+            <p>
+
+                From bags and flowers to toys, keychains and
+                customized gifts, we create products specially
+                for you.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SERVER INFORMATION -->
+    <section>
+
+        <h2>🌐 Website Information</h2>
+
+        <div class="server-info">
+
+            <p>
+                <strong>Website Name:</strong>
+                CrochetNest
+            </p>
+
+            <p>
+                <strong>Protocol:</strong>
+                HTTPS
+            </p>
+
+            <p>
+                <strong>Port:</strong>
+                443
+            </p>
+
+            <p>
+                <strong>Hosting:</strong>
+                Cloud Web Server
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+
+        <h2>📞 Contact Us</h2>
+
+        <div class="contact-box">
+
+            <p>
+                🧶 <strong>CrochetNest</strong>
+            </p>
+
+            <p>
+                📱 WhatsApp:
+                <strong>+91 86088 46418</strong>
+            </p>
+
+            <p>
+                📍 Location:
+                India
+            </p>
+
+            <p>
+                For product enquiries, custom orders and
+                general questions, contact us through WhatsApp.
+            </p>
+
+            <button
+                class="whatsapp-btn"
+                onclick="openWhatsApp()">
+
+                💬 Chat on WhatsApp
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 CrochetNest
+        </p>
+
+        <p>
+            Handmade with Love ❤️
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        /* =========================
+           SHOPPING CART
+        ========================= */
+
+        let cart = [];
+
+
+        function addToCart(productName, price) {
+
+            let existingProduct =
+                cart.find(function(item) {
+                    return item.name === productName;
+                });
+
+
+            if (existingProduct) {
+
+                existingProduct.quantity++;
+
+            } else {
+
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+
+            }
+
+
+            updateCart();
+
+
+            alert(
+                productName +
+                " has been added to your cart!"
+            );
+
+        }
+
+
+        function updateCart() {
+
+            let cartCount = 0;
+            let total = 0;
+
+
+            cart.forEach(function(item) {
+
+                cartCount += item.quantity;
+
+                total +=
+                    item.price *
+                    item.quantity;
+
+            });
+
+
+            document.getElementById("cartCount")
+                .textContent = cartCount;
+
+
+            document.getElementById("cartTotal")
+                .textContent = total;
+
+
+            document.getElementById("panelTotal")
+                .textContent = total;
+
+
+            let cartItems =
+                document.getElementById("cartItems");
+
+
+            if (cart.length === 0) {
+
+                cartItems.innerHTML =
+                    "<p>Your cart is empty.</p>";
+
+            } else {
+
+                cartItems.innerHTML = "";
+
+
+                cart.forEach(function(item, index) {
+
+                    let itemTotal =
+                        item.price *
+                        item.quantity;
+
+
+                    cartItems.innerHTML += `
+
+                        <div class="cart-item">
+
+                            <h4>
+                                ${item.name}
+                            </h4>
+
+                            <p>
+                                ₹${item.price}
+                                ×
+                                ${item.quantity}
+                                =
+                                ₹${itemTotal}
+                            </p>
+
+                            <div class="quantity-controls">
+
+                                <button
+                                    onclick="decreaseQuantity(${index})">
+                                    -
+                                </button>
+
+                                <span>
+                                    ${item.quantity}
+                                </span>
+
+                                <button
+                                    onclick="increaseQuantity(${index})">
+                                    +
+                                </button>
+
+                                <button
+                                    class="remove-btn"
+                                    onclick="removeItem(${index})">
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                });
+
+            }
+
+
+            updateCheckout();
+
+        }
+
+
+        function increaseQuantity(index) {
+
+            cart[index].quantity++;
+
+            updateCart();
+
+        }
+
+
+        function decreaseQuantity(index) {
+
+            if (cart[index].quantity > 1) {
+
+                cart[index].quantity--;
+
+            } else {
+
+                cart.splice(index, 1);
+
+            }
+
+
+            updateCart();
+
+        }
+
+
+        function removeItem(index) {
+
+            cart.splice(index, 1);
+
+            updateCart();
+
+        }
+
+
+        function toggleCart() {
+
+            document
+                .getElementById("cartPanel")
+                .classList.toggle("open");
+
+        }
+
+
+        function goToCheckout() {
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty. Please add a product first."
+                );
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("cartPanel")
+                .classList.remove("open");
+
+
+            document
+                .getElementById("checkout")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+
+
+        /* =========================
+           CHECKOUT
+        ========================= */
+
+        function updateCheckout() {
+
+            let summary =
+                document.getElementById("checkoutSummary");
+
+
+            let total = 0;
+
+
+            if (cart.length === 0) {
+
+                summary.innerHTML =
+                    "<p>Your cart is empty.</p>";
+
+            } else {
+
+                summary.innerHTML = "";
+
+
+                cart.forEach(function(item) {
+
+                    let itemTotal =
+                        item.price *
+                        item.quantity;
+
+
+                    total += itemTotal;
+
+
+                    summary.innerHTML += `
+
+                        <p>
+                            <strong>
+                                ${item.name}
+                            </strong>
+
+                            × ${item.quantity}
+
+                            —
+                            ₹${itemTotal}
+                        </p>
+
+                    `;
+
+                });
+
+            }
+
+
+            document
+                .getElementById("checkoutTotal")
+                .textContent = total;
+
+        }
+
+
+        function placeOrder() {
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty. Please add a product first."
+                );
+
+                return;
+
+            }
+
+
+            let name =
+                document
+                    .getElementById("customerName")
+                    .value
+                    .trim();
+
+
+            let phone =
+                document
+                    .getElementById("customerPhone")
+                    .value
+                    .trim();
+
+
+            let address =
+                document
+                    .getElementById("customerAddress")
+                    .value
+                    .trim();
+
+
+            if (
+                name === "" ||
+                phone === "" ||
+                address === ""
+            ) {
+
+                alert(
+                    "Please fill in your name, phone number and delivery address."
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Thank you, " +
+                name +
+                "! Your order details have been received."
+            );
+
+        }
+
+
+        /* =========================
+           WHATSAPP ORDER
+        ========================= */
+
+        function sendWhatsAppOrder() {
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty. Please add a product first."
+                );
+
+                return;
+
+            }
+
+
+            let name =
+                document
+                    .getElementById("customerName")
+                    .value
+                    .trim();
+
+
+            let phone =
+                document
+                    .getElementById("customerPhone")
+                    .value
+                    .trim();
+
+
+            let address =
+                document
+                    .getElementById("customerAddress")
+                    .value
+                    .trim();
+
+
+            let payment =
+                document
+                    .getElementById("paymentMethod")
+                    .value;
+
+
+            if (
+                name === "" ||
+                phone === "" ||
+                address === ""
+            ) {
+
+                alert(
+                    "Please fill in your name, phone number and delivery address first."
+                );
+
+                return;
+
+            }
+
+
+            let message =
+                "🧶 *CrochetNest Order*\n\n" +
+
+                "*Customer Details*\n" +
+                "Name: " + name + "\n" +
+                "Phone: " + phone + "\n" +
+                "Address: " + address + "\n" +
+                "Payment: " + payment + "\n\n" +
+
+                "*Order Details*\n";
+
+
+            let total = 0;
+
+
+            cart.forEach(function(item) {
+
+                let itemTotal =
+                    item.price *
+                    item.quantity;
+
+
+                total += itemTotal;
+
+
+                message +=
+                    item.name +
+                    " × " +
+                    item.quantity +
+                    " = ₹" +
+                    itemTotal +
+                    "\n";
+
+            });
+
+
+            message +=
+                "\n*Total: ₹" +
+                total +
+                "*";
+
+
+            let whatsappNumber =
+                "918608846418";
+
+
+            let whatsappURL =
+                "https://wa.me/" +
+                whatsappNumber +
+                "?text=" +
+                encodeURIComponent(message);
+
+
+            window.open(
+                whatsappURL,
+                "_blank"
+            );
+
+        }
+
+
+        /* =========================
+           GENERAL WHATSAPP
+        ========================= */
+
+        function openWhatsApp() {
+
+            let whatsappNumber =
+                "918608846418";
+
+
+            let message =
+                "Hello CrochetNest! I would like to know more about your crochet products.";
+
+
+            let url =
+                "https://wa.me/" +
+                whatsappNumber +
+                "?text=" +
+                encodeURIComponent(message);
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        }
+
+
+        /* =========================
+           SEARCH AND CATEGORY FILTER
+        ========================= */
+
+        let selectedCategory = "All";
+
+
+        function filterProducts() {
+
+            let searchText =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            let products =
+                document.querySelectorAll(".product");
+
+
+            products.forEach(function(product) {
+
+                let name =
+                    product
+                        .dataset
+                        .name
+                        .toLowerCase();
+
+
+                let category =
+                    product.dataset.category;
+
+
+                let matchesSearch =
+                    name.includes(searchText);
+
+
+                let matchesCategory =
+                    selectedCategory === "All" ||
+                    category === selectedCategory;
+
+
+                if (
+                    matchesSearch &&
+                    matchesCategory
+                ) {
+
+                    product.style.display =
+                        "block";
+
+                } else {
+
+                    product.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+        function filterCategory(category, button) {
+
+            selectedCategory =
+                category;
+
+
+            document
+                .querySelectorAll(".category-button")
+                .forEach(function(btn) {
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            filterProducts();
+
+        }
+
+
+        /* =========================
+           CUSTOM ORDER
+        ========================= */
+
+        function submitCustomOrder(event) {
+
+            event.preventDefault();
+
+
+            let name =
+                document
+                    .getElementById("customName")
+                    .value;
+
+
+            alert(
+                "Thank you, " +
+                name +
+                "! Your custom order request has been submitted."
+            );
+
+
+            document
+                .querySelector("#custom form")
+                .reset();
+
+        }
+
+
+        /* =========================
+           INITIAL CART UPDATE
+        ========================= */
+
+        updateCart();
+
+    </script>
+
+</body>
+</html>
